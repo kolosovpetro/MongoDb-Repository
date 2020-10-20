@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Linq;
 using MongoDb.BaseRepository;
-using MongoDB.Driver;
+using MongoDb.Models.Models;
 
 namespace MongoDb.UI
 {
@@ -8,6 +9,9 @@ namespace MongoDb.UI
     {
         private static void Main()
         {
+            var repo = new BaseRepository<Cars>();
+            var allCars = repo.GetAll();
+            allCars.ToList().ForEach(Console.WriteLine);
         }
     }
 }

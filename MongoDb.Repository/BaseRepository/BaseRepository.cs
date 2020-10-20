@@ -5,6 +5,7 @@ using MongoDB.Bson;
 using MongoDb.ConnectionStrings;
 using MongoDB.Driver;
 using MongoDb.Interfaces;
+using MongoDb.Models.Interfaces;
 
 namespace MongoDb.BaseRepository
 {

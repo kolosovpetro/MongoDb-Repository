@@ -7,11 +7,16 @@
 
     <ItemGroup>
       <Folder Include="Implementations" />
+      <Folder Include="Models" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="MongoDB.Bson" Version="2.11.3" />
       <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MongoDb.Models\MongoDb.Models.csproj" />
     </ItemGroup>
 
 </Project>
