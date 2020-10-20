@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>MongoDb</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Implementations" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Bson" Version="2.11.3" />
+      <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
+    </ItemGroup>
+
+</Project>
