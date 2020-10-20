@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDb.ConnectionStrings;
 using MongoDB.Driver;
@@ -11,42 +12,47 @@ namespace MongoDb.BaseRepository
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : IEntity
     {
-        private readonly IMongoDatabase _database;
         private readonly IMongoCollection<TEntity> _collection;
 
         public BaseRepository()
         {
             var client = new MongoClient(ConnectionString.Localhost);
-            _database = client.GetDatabase(typeof(TEntity).Name);
-            _collection = _database.GetCollection<TEntity>(typeof(TEntity).Name);
+            var database = client.GetDatabase(typeof(TEntity).Name);
+            _collection = database.GetCollection<TEntity>(typeof(TEntity).Name);
         }
 
-        public bool Insert(TEntity entity)
+
+        public async Task Insert(TEntity entity)
+        {
+            await _collection.InsertOneAsync(entity);
+        }
+
+        public async Task<bool> UpdateUser(ObjectId id, string updateFieldName, string updateFieldValue)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(TEntity entity)
+        public async Task<bool> DeleteUserById(ObjectId id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(TEntity entity)
+        public async Task<long> DeleteAllUsers()
         {
             throw new NotImplementedException();
         }
 
-        public IList<TEntity> SearchFor(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IList<TEntity>> Get(Func<TEntity, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public IList<TEntity> GetAll()
+        public async Task<IList<TEntity>> GetAll()
         {
-            return _collection.Find(new BsonDocument()).ToList();
+            return await _collection.Find(new BsonDocument()).ToListAsync();
         }
 
-        public TEntity GetById(Guid id)
+        public async Task<IList<TEntity>> GetByFieldValue(string field, string value)
         {
             throw new NotImplementedException();
         }

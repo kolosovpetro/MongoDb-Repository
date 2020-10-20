@@ -11,7 +11,7 @@ namespace MongoDb.UI
         {
             var repo = new BaseRepository<Cars>();
             var allCars = repo.GetAll();
-            allCars.ToList().ForEach(Console.WriteLine);
+            allCars.Result.ToList().ForEach(Console.WriteLine);
         }
     }
 }

@@ -7,7 +7,12 @@
 - Requires drivers: MongoDB.Driver
 - Requires drivers: MongoDB.Bson
 
-# Data
+## Problems
+
+- All data base loaded to memery always
+
+## Data
+
 db.Cars.insert({name: "Audi", price: 52642})
 
 db.Cars.insert({name: "Mercedes", price: 57127})
