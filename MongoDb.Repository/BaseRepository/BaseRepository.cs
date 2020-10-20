@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDb.ConnectionStrings;
@@ -27,24 +25,19 @@ namespace MongoDb.BaseRepository
             await _collection.InsertOneAsync(entity);
         }
 
-        public async Task<bool> UpdateUser(ObjectId id, string updateFieldName, string updateFieldValue)
+        public async Task<bool> Update(ObjectId id, string updateFieldName, string updateFieldValue)
         {
-            throw new NotImplementedException();
+            var filter = Builders<TEntity>.Filter.Eq("_id", id);
+            var update = Builders<TEntity>.Update.Set(updateFieldName, updateFieldValue);
+            var result = await _collection.UpdateOneAsync(filter, update);
+            return result.ModifiedCount != 0;
         }
 
-        public async Task<bool> DeleteUserById(ObjectId id)
+        public async Task<bool> Delete(ObjectId id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<long> DeleteAllUsers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IList<TEntity>> Get(Func<TEntity, bool> predicate)
-        {
-            throw new NotImplementedException();
+            var filter = Builders<TEntity>.Filter.Eq("_id", id);
+            var result = await _collection.DeleteOneAsync(filter);
+            return result.DeletedCount != 0;
         }
 
         public async Task<IList<TEntity>> GetAll()
@@ -54,7 +47,9 @@ namespace MongoDb.BaseRepository
 
         public async Task<IList<TEntity>> GetByFieldValue(string field, string value)
         {
-            throw new NotImplementedException();
+            var filter = Builders<TEntity>.Filter.Eq(field, value);
+            var result = await _collection.Find(filter).ToListAsync();
+            return result;
         }
     }
 }
